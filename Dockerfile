@@ -1,3 +1,5 @@
+#DOCKERFILE defines how to build a container image using Docker
+
 FROM python:3.10-slim
 
 WORKDIR /app
