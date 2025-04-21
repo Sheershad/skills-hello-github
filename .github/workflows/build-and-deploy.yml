@@ -1,0 +1,45 @@
+name: Build and Deploy to AKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: myacr64634.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and push image
+      run: |
+        docker build -t myacr64634.azurecr.io/sample-python-app:latest .
+        docker push myacr64634.azurecr.io/sample-python-app:latest
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set AKS context
+      uses: azure/aks-set-context@v3
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        cluster-name: myAksCluster
+        resource-group: Test-RG
+
+    - name: Deploy to AKS
+      run: |
+        kubectl apply -f deployment.yaml
