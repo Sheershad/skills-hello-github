@@ -21,14 +21,14 @@ jobs:
     - name: Log in to ACR
       uses: azure/docker-login@v1
       with:
-        login-server: myacr64634.azurecr.io
+        login-server: myacr19983.azurecr.io
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build and push image
       run: |
-        docker build -t myacr64634.azurecr.io/sample-python-app:latest .
-        docker push myacr64634.azurecr.io/sample-python-app:latest
+        docker build -t myacr19983.azurecr.io/sample-python-app:latest .
+        docker push myacr19983.azurecr.io/sample-python-app:latest
 
     - name: Azure Login
       uses: azure/login@v1

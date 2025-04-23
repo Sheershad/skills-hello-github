@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: myacr64634.azurecr.io/sample-python-app:latest
+        image: myacr19983.azurecr.io/sample-python-app:latest
         ports:
         - containerPort: 5000
         resources:
