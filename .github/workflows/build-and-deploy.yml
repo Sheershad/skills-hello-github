@@ -19,7 +19,7 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
     - name: Log in to ACR
-      uses: azure/docker-login@v1
+      uses: azure/docker-login@v2
       with:
         login-server: myacr19983.azurecr.io
         username: ${{ secrets.ACR_USERNAME }}
